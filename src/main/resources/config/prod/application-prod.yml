@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: tradelunch_auth_prod

@@ -1,0 +1,184 @@
+spring:
+  application:
+    name: tradelunch_auth
+  profiles:
+    active: live
+  server:
+    port: 8080
+  security:
+    user:
+      name: admin
+      password: 123
+  config:
+    import: "optional:file:/resources/.env[.yml|.yaml]"
+
+
+  data:
+    h2:
+      repositories:
+        enabled: false
+
+#  spring.sql.init.mode (SQL 파일 실행)
+  sql:
+    init:
+      platform: mysql
+      mode: never
+#      항상 schema.sql 실행
+#             always	애플리케이션 시작 시마다 schema.sql과 data.sql 실행
+#             never	SQL 파일 실행하지 않음
+#             embedded	H2, HSQLDB 같은 임베디드 DB에서만 SQL 파일 실행
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/eazybank?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: root
+    hikari:
+      maximumPoolSize: 10
+      minimumIdle: 5
+      idleTimeout: 600000
+      maxLifetime: 1800000
+      connectionTimeout: 30000
+      poolName: HikariCP
+  jpa:
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        generate_statistics: false
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create-drop
+#      ddl-auto: create-drop
+#      Hibernate가 엔터티(Entity) 클래스 기반으로 데이터베이스 테이블을 자동 생성 또는 변경함.
+#      SQL 파일을 직접 실행하지 않고, Java 코드(Entity)를 기반으로 스키마를 관리함.
+#                none	Hibernate가 스키마를 변경하지 않음 (기본값)	✅ 추천
+#                create	애플리케이션 실행 시 기존 테이블을 삭제하고 새로 생성	❌ 비추천 (데이터 삭제됨)
+#                create-drop	실행 시 테이블 생성, 애플리케이션 종료 시 삭제	❌ 비추천 (데이터 유지 안됨)
+#                update	기존 테이블 구조를 변경하지 않고, 필요한 컬럼만 추가	✅ 운영 환경에서 사용 가능
+#                validate	테이블 구조가 엔터티와 맞는지 확인, 다르면 오류 발생	✅ 운영 환경 추천
+    generate-ddl: true # Generate the schema on startup
+    generate_statistics: true
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+
+
+logging:
+  level:
+    root: INFO # Default log level
+    # com.udemy.spring.security.controller: DEBUG # Customize log level for your package
+    org.springframework.security: TRACE
+  pattern:
+    console: "%blue(%-5level):%red([%thread]):%green(%d{yyyy-MM-dd HH:mm:ss}):%yellow(%logger{36}) %red(::) %msg%n"
+
+#spring:
+#  profiles:
+#    active: test
+#  data.h2.repositories.enabled: false
+#  datasource:
+#    hikari:
+#      connectionTimeout: 30000
+#      idleTimeout: 600000
+#      maxLifetime: 1800000
+#      maximumPoolSize : 5
+#      poolName : HikariCP
+#    type: com.zaxxer.hikari.HikariDataSource
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/mobility?serverTimezone=UTC&characterEncoding=UTF-8
+#    username: root
+#    passowrd:
+#    platform: mysql
+#  jpa:
+#    show-sql: true
+#    open-in-view: false
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        use_sql_comments: true
+#        generate_statistics: false
+#    database: mysql
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    hibernate:
+#      ddl-auto: create-drop #update #create-drop #create
+#    generate-ddl: true
+#    generate_statistics: true
+#
+#  output:
+#    ansi:
+#      enabled: ALWAYS
+#
+#logging:
+#  level:
+#    root: info
+#    org:
+#      springframework:
+#        web: debug
+#      hibernate:
+#        sql: debug #sql queries
+#        type.descriptor.sql.BasicBinder: TRACE # the prepared statement parameters.
+#
+#server:
+#  port: 3000
+#
+#date.time.format: yyyy-MM-dd HH:mm:ss
+#test.message: application
+
+#spring:
+#  profiles:
+#    active: test
+#  data.h2.repositories.enabled: false
+#  datasource:
+#    hikari:
+#      connectionTimeout: 30000
+#      idleTimeout: 600000
+#      maxLifetime: 1800000
+#      maximumPoolSize : 5
+#      poolName : HikariCP
+#    type: com.zaxxer.hikari.HikariDataSource
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/mobility?serverTimezone=UTC&characterEncoding=UTF-8
+#    username: root
+#    passowrd:
+#    platform: mysql
+#  jpa:
+#    show-sql: true
+#    open-in-view: false
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        use_sql_comments: true
+#        generate_statistics: false
+#    database: mysql
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    hibernate:
+#      ddl-auto: create-drop #update #create-drop #create
+#    generate-ddl: true
+#    generate_statistics: true
+#
+#  output:
+#    ansi:
+#      enabled: ALWAYS
+#
+#logging:
+#  level:
+#    root: info
+#    org:
+#      springframework:
+#        web: debug
+#      hibernate:
+#        sql: debug #sql queries
+#        type.descriptor.sql.BasicBinder: TRACE # the prepared statement parameters.
+#
+#server:
+#  port: 3000
+#
+#date.time.format: yyyy-MM-dd HH:mm:ss
+#
+#test.message: application
